@@ -6,7 +6,7 @@ import * as MeshoptDecoder from 'three/addons/libs/meshopt_decoder.module.js';
 
 /* ---------------- data ---------------- */
 const MODEL_BASE =
-  'https://github.com/KISHORE-35/f1-garage-madring/releases/download/v1.0.0';
+  'https://huggingface.co/Kishorer75/f1-garage-madring/resolve/main';
 
 const TEAMS = [
   {
