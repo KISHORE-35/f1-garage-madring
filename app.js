@@ -5,17 +5,97 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import * as MeshoptDecoder from 'three/addons/libs/meshopt_decoder.module.js';
 
 /* ---------------- data ---------------- */
+const MODEL_BASE =
+  'https://github.com/KISHORE-35/f1-garage-madring/releases/download/v1.0.0';
+
 const TEAMS = [
- { id:'ferrari',   team:'SCUDERIA FERRARI',   car:'SF-25',  year:2025, file:'ferrari_sf-25.glb',              color:'#e8002d', pu:'Ferrari 066/12', speed:'345 km/h', lap:'1:12.4' },
- { id:'mclaren',   team:'McLAREN',            car:'MCL39',  year:2025, file:'f1_2025_mclaren_mcl39.glb',      color:'#ff8000', pu:'Mercedes M16',   speed:'348 km/h', lap:'1:11.9' },
- { id:'mercedes',  team:'MERCEDES-AMG',       car:'W14',    year:2023, file:'2023_mercedes_f1_car.glb',       color:'#00a19b', pu:'Mercedes M14',   speed:'342 km/h', lap:'1:13.1' },
- { id:'redbull',   team:'RED BULL RACING',    car:'RB22',   year:2026, file:'2026_red_bull_racing_rb22.glb',  color:'#3671c6', pu:'Honda RBPT',     speed:'351 km/h', lap:'1:11.2' },
- { id:'aston',     team:'ASTON MARTIN',       car:'AMR26',  year:2026, file:'2026_aston_martin_amr26.glb',    color:'#229971', pu:'Honda RBPT',     speed:'344 km/h', lap:'1:12.8' },
- { id:'williams',  team:'WILLIAMS RACING',    car:'FW48',   year:2026, file:'2026_williams_fw48.glb',         color:'#005a7b', pu:'Mercedes M17',   speed:'346 km/h', lap:'1:12.2' },
- { id:'haas',      team:'HAAS F1 TEAM',       car:'VF-26',  year:2026, file:'2026_haas_vf-26.glb',            color:'#b6babd', pu:'Ferrari 066/13', speed:'341 km/h', lap:'1:13.6' },
+  {
+    id:'ferrari',
+    team:'SCUDERIA FERRARI',
+    car:'SF-25',
+    year:2025,
+    file:`${MODEL_BASE}/ferrari_sf-25.glb`,
+    color:'#e8002d',
+    pu:'Ferrari 066/12',
+    speed:'345 km/h',
+    lap:'1:12.4'
+  },
+
+  {
+    id:'mclaren',
+    team:'McLAREN',
+    car:'MCL39',
+    year:2025,
+    file:`${MODEL_BASE}/f1_2025_mclaren_mcl39.glb`,
+    color:'#ff8000',
+    pu:'Mercedes M16',
+    speed:'348 km/h',
+    lap:'1:11.9'
+  },
+
+  {
+    id:'mercedes',
+    team:'MERCEDES-AMG',
+    car:'W14',
+    year:2023,
+    file:`${MODEL_BASE}/2023_mercedes_f1_car.glb`,
+    color:'#00a19b',
+    pu:'Mercedes M14',
+    speed:'342 km/h',
+    lap:'1:13.1'
+  },
+
+  {
+    id:'redbull',
+    team:'RED BULL RACING',
+    car:'RB22',
+    year:2026,
+    file:`${MODEL_BASE}/2026_red_bull_racing_rb22.glb`,
+    color:'#3671c6',
+    pu:'Honda RBPT',
+    speed:'351 km/h',
+    lap:'1:11.2'
+  },
+
+  {
+    id:'aston',
+    team:'ASTON MARTIN',
+    car:'AMR26',
+    year:2026,
+    file:`${MODEL_BASE}/2026_aston_martin_amr26.glb`,
+    color:'#229971',
+    pu:'Honda RBPT',
+    speed:'344 km/h',
+    lap:'1:12.8'
+  },
+
+  {
+    id:'williams',
+    team:'WILLIAMS RACING',
+    car:'FW48',
+    year:2026,
+    file:`${MODEL_BASE}/2026_williams_fw48.glb`,
+    color:'#005a7b',
+    pu:'Mercedes M17',
+    speed:'346 km/h',
+    lap:'1:12.2'
+  },
+
+  {
+    id:'haas',
+    team:'HAAS F1 TEAM',
+    car:'VF-26',
+    year:2026,
+    file:`${MODEL_BASE}/2026_haas_vf-26.glb`,
+    color:'#b6babd',
+    pu:'Ferrari 066/13',
+    speed:'341 km/h',
+    lap:'1:13.6'
+  }
 ];
 
-const CIRCUIT = 'circuito_de_madring_2026_layout.glb';
+const CIRCUIT =
+  `${MODEL_BASE}/circuito_de_madring_2026_layout.glb`;
 
 /*
  * Centerline generated from the actual TarmacDark.001 asphalt mesh
@@ -445,9 +525,7 @@ async function setCar(team) {
     carGroup.remove(carGroup.children[0]);
   }
 
-  const gltf = await loadGLB(
-    'models/' + team.file
-  );
+  const gltf = await loadGLB(team.file);
 
   currentCar = gltf.scene;
 
@@ -467,9 +545,7 @@ async function setCar(team) {
 async function loadCircuit() {
   msgEl.textContent = 'Loading Madring circuit…';
 
-  const gltf = await loadGLB(
-    'models/' + CIRCUIT
-  );
+  const gltf = await loadGLB(CIRCUIT);
 
   circuit = gltf.scene;
 
